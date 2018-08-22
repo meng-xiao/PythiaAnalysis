@@ -128,14 +128,14 @@ SmearJet::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
 		double pt = jet.pt();
 		double newpt= rgen_->Gaus (pt, pt*0.15);
-		//std::cout << pt<<"\t"<<newpt<<std::endl;
+		//std::cout << "jet "<<pt<<"\t"<<newpt<<std::endl;
 		bool overlap = false;
 		if( newpt>25 && abs( jet.eta())<4.7){
 			TLorentzVector p4;
 			p4.SetPtEtaPhiM(newpt, jet.eta(), jet.phi(), jet.mass());
 		  for( View<reco::Candidate>::const_iterator lep = lepton->begin(); lep != lepton->end(); ++ lep ){	
 			  reco::Candidate::LorentzVector lepp4 =lep->p4();
-			if(ROOT::Math::VectorUtil::DeltaR(lepp4.Vect(), jet.p4().Vect())< 0.1){
+			if(ROOT::Math::VectorUtil::DeltaR(lepp4.Vect(), jet.p4().Vect())< 0.3){
 				overlap= true;
 				break;
 			}

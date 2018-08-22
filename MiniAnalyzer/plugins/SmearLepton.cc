@@ -128,7 +128,7 @@ SmearLepton::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
                       if(motherid == 23 || motherid==pdgid || motherid==25){
 					p4.SetPtEtaPhiM(newpt, par->eta(), par->phi(), par->mass());
 					mu->setP4(reco::Particle::PolarLorentzVector(p4.Pt(), p4.Eta(), p4.Phi(), mu->mass()));	
-					//std::cout<< pt<<"\t"<<mu->pt()<<std::endl;
+//					std::cout<< pt<<"\t"<<mu->pt()<<std::endl;
 					outputMuons->push_back(mu);
 }
 				}
@@ -138,7 +138,7 @@ SmearLepton::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
                       if(motherid == 23 || motherid==pdgid || motherid==25){
 					p4.SetPtEtaPhiM(newpt, par->eta(), par->phi(), par->mass());
 					mu->setP4(reco::Particle::PolarLorentzVector(p4.Pt(), p4.Eta(), p4.Phi(), mu->mass()));	
-					//std::cout<< pt<<"\t"<<mu->pt()<<std::endl;
+//					std::cout<< pt<<"\t"<<mu->pt()<<std::endl;
 					outputMuons->push_back(mu);
 				}
 

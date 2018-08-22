@@ -1,6 +1,6 @@
 #!/bin/env python
 
-from ZZAnalysis.AnalysisStep.hadd import haddChunks
+from Test.MiniAnalyzer.hadd import haddChunks
 
 
 if __name__ == '__main__':
