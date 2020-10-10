@@ -26,3 +26,4 @@ scram b -j8
 cd MiniAnalyzer/test
 source grid.sh
 batch_Condor.py samples_2017_MC.csv -i analyzer_gen.py -o minloFilter
+
