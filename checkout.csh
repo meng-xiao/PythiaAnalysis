@@ -1,14 +1,19 @@
 #!/bin/tcsh -fe
 
+# MELA Analytics
 git clone https://github.com/usarica/MelaAnalytics.git
-
-#MELA
+(cd MelaAnalytics; git checkout -b from-v19 v1.9)
+# MELA
 git clone https://github.com/cms-analysis/HiggsAnalysis-ZZMatrixElement.git ZZMatrixElement
-(cd ZZMatrixElement; git checkout -b from-v216 v2.1.6)
+(cd ZZMatrixElement; git checkout -b from-v222 v2.2.2)
+# Test
+# git clone https://github.com/meng-xiao/PythiaAnalysis.git Test
+git clone https://github.com/qwezarty/PythiaAnalysis.git Test
+
 # replace ZZMatrixElement/MELA/setup.sh -j 8
 (                                                                 \
   cd ${CMSSW_BASE}/src/ZZMatrixElement/MELA/COLLIER/             ;\
-  set pkgname="collier-1.2"                                      ;\
+  set pkgname="collier-1.2.0"                                      ;\
   set pkgdir="COLLIER-1.2"                                       ;\
   set tarname=$pkgname".tar.gz"                                  ;\
   set tarweb="https://www.hepforge.org/archive/collier/"$tarname ;\
@@ -29,4 +34,3 @@ git clone https://github.com/cms-analysis/HiggsAnalysis-ZZMatrixElement.git ZZMa
   mv libjhugenmela.so ../data/${SCRAM_ARCH}/                     ;\
 )
 
-git clone https://github.com/meng-xiao/Test.git
