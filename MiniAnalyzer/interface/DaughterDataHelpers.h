@@ -25,6 +25,8 @@ typedef pat::PFParticle        Photon;
 typedef edm::Ptr<Photon>       PhotonPtr;
 typedef std::vector<PhotonPtr> PhotonPtrVector;
 
+using namespace std;
+
 namespace userdatahelpers {
 
   /// Retrieve the userFloat "name" from a reco::Candidate c

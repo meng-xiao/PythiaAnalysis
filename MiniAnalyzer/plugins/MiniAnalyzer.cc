@@ -53,6 +53,7 @@ Implementation:
 
 
 
+using namespace std;
 using namespace BranchHelpers;
 
 enum FailedTreeLevel {
