@@ -161,7 +161,7 @@ void HZZ4lNtupleFactory::BookMELABranches(MELAOptionParser* me_opt, bool isGen, 
     }
   }
 
-  vector<TTree*> trees;
+  std::vector<TTree*> trees;
   trees.push_back(_outTree);
   if (isGen) trees.push_back(_failedTree);
 

@@ -883,8 +883,8 @@ void MiniAnalyzer::FillLHECandidate(){
 			}
 		}
 
-		vector<MELAParticle*> AssociatedParticle;
-		vector<MELAParticle*> tmpAssociatedParticle;
+		std::vector<MELAParticle*> AssociatedParticle;
+		std::vector<MELAParticle*> tmpAssociatedParticle;
 		for (int aa=0; aa<cand->getNAssociatedJets(); aa++){
 			MELAParticle* apart = cand->getAssociatedJet(aa);
 			tmpAssociatedParticle.push_back(apart);
@@ -1042,7 +1042,7 @@ MiniAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup){
 	}
 
 	edm::Handle<LHEEventProduct> lhe_evt;
-	vector<edm::Handle<LHEEventProduct> > lhe_handles;
+	std::vector<edm::Handle<LHEEventProduct> > lhe_handles;
 	iEvent.getManyByType(lhe_handles);
 	if (lhe_handles.size()>0){
 		lhe_evt = lhe_handles.front();
@@ -1106,7 +1106,7 @@ MiniAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup){
 		FillJet(jetc); // No additional pT cut (for JEC studies)
 	}
 	int nFilled=0;
-	vector<Int_t> CRFLAG(cands->size());
+	std::vector<Int_t> CRFLAG(cands->size());
 
 	for( edm::View<pat::CompositeCandidate>::const_iterator cand = cands->begin(); cand != cands->end(); ++cand) {
 		size_t icand= cand-cands->begin();
@@ -1576,10 +1576,10 @@ void MiniAnalyzer::FillCandidate(const pat::CompositeCandidate& cand, bool evtPa
 	//Z1 and Z2 variables
 	const reco::Candidate* Z1;
 	const reco::Candidate* Z2;
-	vector<const reco::Candidate*> leptons;
-	vector<const reco::Candidate*> fsrPhot;
-	vector<short> fsrIndex;
-	vector<string> labels;
+	std::vector<const reco::Candidate*> leptons;
+	std::vector<const reco::Candidate*> fsrPhot;
+	std::vector<short> fsrIndex;
+	std::vector<string> labels;
 
 	Z1   = cand.daughter("Z1");
 	Z2   = cand.daughter("Z2");

@@ -122,7 +122,7 @@ const reco::GenParticle* MCHistoryTools::getParent(const reco::GenParticle* genL
 // Same as the above, but try recovery in case default PAT matching fails.
 // (This happens rather often for electron due to brems/FSR, since the default matching handles this poorly).
 // The recovery consists in matching between a selected list of genleptons, cf. getMatch().
-const reco::GenParticle* MCHistoryTools::getParent(const pat::Electron* lep, const vector<const Candidate *>& gen4lep) {
+const reco::GenParticle* MCHistoryTools::getParent(const pat::Electron* lep, const std::vector<const Candidate *>& gen4lep) {
   const reco::GenParticle* parent= getParent((lep->genParticleRef()).get());
   if (parent==0) {
     parent=getParent(getMatch(lep, gen4lep));
@@ -133,7 +133,7 @@ const reco::GenParticle* MCHistoryTools::getParent(const pat::Electron* lep, con
 // Manual matching with closest same-flavour gen lepton (of any status). 
 // This was test to work great when the provided candidates are e.g. only the signal ones.
 //FIXME: check and charge!
-const reco::GenParticle* MCHistoryTools::getMatch(const pat::Electron* lep, const vector<const Candidate *>& gen4lep) {
+const reco::GenParticle* MCHistoryTools::getMatch(const pat::Electron* lep, const std::vector<const Candidate *>& gen4lep) {
   float mindeltaR=9999;
   const Candidate * genmatch = 0;
   int lcode = lep->pdgId();
@@ -169,7 +169,7 @@ int MCHistoryTools::getParentCode(const reco::GenParticle* genLep) {
 
 // Same as above, but if no match is found, search for a match within gen4lep
 // Cf. getParent(lep, gen4lep) for details.
-int MCHistoryTools::getParentCode(const pat::Electron* lep, const vector<const Candidate *>& gen4lep) {
+int MCHistoryTools::getParentCode(const pat::Electron* lep, const std::vector<const Candidate *>& gen4lep) {
   int parentId = getParentCode((lep->genParticleRef()).get());
   
   if (parentId==0) { // Recover for bad matching to status 1 electrons due to brems
@@ -476,7 +476,7 @@ MCHistoryTools::genAssociatedFS(){
 
 // Find gen FSR matching (closest) to recoFSR.
 int MCHistoryTools::fsrMatch(const reco::Candidate* recoFSR, 
-		       const vector<const reco::Candidate*>& genFSRs) {
+		       const std::vector<const reco::Candidate*>& genFSRs) {
 
   //FIXME: cuts should be tuned; is pT matching also necessary?
   const double dRMatchingCut = 0.3; // FIXME!!! 

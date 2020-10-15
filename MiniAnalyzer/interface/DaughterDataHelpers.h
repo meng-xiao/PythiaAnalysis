@@ -45,7 +45,7 @@ namespace userdatahelpers {
     stringstream str;
     str << "d" << i << ".";
     str >> base;
-    const vector<string> & userLabels = d->userFloatNames();
+    const std::vector<string> & userLabels = d->userFloatNames();
     for (vector<string>::const_iterator name = userLabels.begin(); name!= userLabels.end(); ++name){      
       string newname = base + *name;
       cand.addUserFloat(newname, d->userFloat(*name));

@@ -63,17 +63,17 @@ protected:
   const int year;
 
   edm::Handle<LHEEventProduct>* lhe_evt;
-  vector<MELAParticle*> particleList;
+  std::vector<MELAParticle*> particleList;
   MELAEvent* genEvent;
   MELACandidate* genCand;
 
   float defaultNLOweight;
   float LHEOriginalWeight;
   float powhegOriginalWeight;
-  vector<float> LHEWeight;
-  vector<float> LHEWeight_PDFVariationUpDn;
-  vector<float> LHEWeight_AsMZUpDn;
-  vector<int> PDFid;
+  std::vector<float> LHEWeight;
+  std::vector<float> LHEWeight_PDFVariationUpDn;
+  std::vector<float> LHEWeight_AsMZUpDn;
+  std::vector<int> PDFid;
   float PDFScale;
 
   void readEvent();

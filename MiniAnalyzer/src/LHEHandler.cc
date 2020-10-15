@@ -194,8 +194,8 @@ void LHEHandler::readEvent(){
 
   // LHE weights (Maximum 9 or size of weights array for QCD variations, 2 for PDF variations and 2 for alphas(mZ) variations)
   LHEOriginalWeight = (*lhe_evt)->originalXWGTUP();
-  vector<float> LHEPDFAlphaSMZWgt;
-  vector<float> LHEPDFVariationWgt;
+  std::vector<float> LHEPDFAlphaSMZWgt;
+  std::vector<float> LHEPDFVariationWgt;
   bool founddefaultNLOweight = false;
   bool foundpowhegOriginalWeight = false;
   AlternateWeightsType weightstype = unknown;
