@@ -1,5 +1,6 @@
 #include <Test/MiniAnalyzer/interface/LHEHandler.h>
 #include <MelaAnalytics/EventContainer/interface/HiggsComparators.h>
+#include <MelaAnalytics/EventContainer/interface/MELAEvent.h>
 #include <iomanip>
 #include <iostream>
 #include <cstdlib>
@@ -132,7 +133,7 @@ void LHEHandler::extract(){
           }
         }
 
-        genEvent->constructVVCandidates(VVMode, VVDecayMode);
+        genEvent->constructVVCandidates((MELAEvent::CandidateVVMode)VVMode, VVDecayMode);
         for (MELAParticle* genPart:particleList){ if (genPart->genStatus==-1) genEvent->addVVCandidateMother(genPart); }
         genEvent->addVVCandidateAppendages();
 
@@ -142,11 +143,11 @@ void LHEHandler::extract(){
             MELACandidate* tmpCand = matchAHiggsToParticle(*genEvent, particleList.at(iH));
             if (tmpCand){
               if (!genCand) genCand=tmpCand;
-              else genCand = candComparator(genCand, tmpCand, HiggsComparators::BestZ1ThenZ2ScSumPt, VVMode);
+              else genCand = candComparator(genCand, tmpCand, HiggsComparators::BestZ1ThenZ2ScSumPt, (MELAEvent::CandidateVVMode)VVMode);
             }
           }
         }
-        if (!genCand) genCand = candidateSelector(*genEvent, HiggsComparators::BestZ1ThenZ2ScSumPt, VVMode);
+        if (!genCand) genCand = candidateSelector(*genEvent, HiggsComparators::BestZ1ThenZ2ScSumPt, (MELAEvent::CandidateVVMode)VVMode);
 
       }
       else{ genCand=0; genEvent=0; }
