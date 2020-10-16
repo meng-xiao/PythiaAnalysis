@@ -6,9 +6,13 @@ git clone https://github.com/usarica/MelaAnalytics.git
 # MELA
 git clone https://github.com/cms-analysis/HiggsAnalysis-ZZMatrixElement.git ZZMatrixElement
 (cd ZZMatrixElement; git checkout -b from-v222 v2.2.2)
+# JHUGenMELA
+git clone https://github.com/JHUGen/JHUGenMELA.git
+(cd JHUGenMELA; git checkout -b from-v231 v2.3.1)
 # Test
-# git clone https://github.com/meng-xiao/PythiaAnalysis.git Test
-git clone https://github.com/qwezarty/PythiaAnalysis.git Test
+git clone https://github.com/meng-xiao/PythiaAnalysis.git Test
+# git clone https://github.com/qwezarty/PythiaAnalysis.git Test
+
 
 # replace ZZMatrixElement/MELA/setup.sh -j 8
 (                                                                 \
