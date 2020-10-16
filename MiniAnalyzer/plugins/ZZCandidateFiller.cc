@@ -40,6 +40,7 @@
 #include <string>
 #include <vector>
 
+using namespace std;
 using namespace BranchHelpers;
 
 
@@ -163,7 +164,7 @@ void ZZCandidateFiller::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
   // Get leptons (in order to store extra leptons)
   Handle<reco::CandidateCollection>  softleptoncoll;
   iEvent.getByToken(softLeptonToken, softleptoncoll);
-  vector<reco::CandidatePtr> goodisoleptonPtrs;
+  std::vector<reco::CandidatePtr> goodisoleptonPtrs;
   for( reco::CandidateCollection::const_iterator lep = softleptoncoll->begin(); lep != softleptoncoll->end(); ++ lep ){
       const reco::CandidatePtr lepPtr(softleptoncoll,lep-softleptoncoll->begin());
       goodisoleptonPtrs.push_back(lepPtr);
@@ -174,9 +175,9 @@ void ZZCandidateFiller::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
   iEvent.getByToken(ZCandToken, ZCands);
 
 
-  vector<int> bestCandIdx(preBestCandSelection.size(),-1);
-  vector<float> maxPtSum(preBestCandSelection.size(),-1);
-  vector< vector<int> > preSelCands(preBestCandSelection.size());
+  std::vector<int> bestCandIdx(preBestCandSelection.size(),-1);
+  std::vector<float> maxPtSum(preBestCandSelection.size(),-1);
+  std::vector< std::vector<int> > preSelCands(preBestCandSelection.size());
   //----------------------------------------------------------------------
   //--- Loop over input candidates
   for( View<CompositeCandidate>::const_iterator cand = LLLLCands->begin(); cand != LLLLCands->end(); ++ cand ) {
@@ -205,17 +206,17 @@ void ZZCandidateFiller::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     //--- Z pointers
     const reco::Candidate* Z1= myCand.daughter(iZ1);
     const reco::Candidate* Z2= myCand.daughter(iZ2);
-    vector<const reco::Candidate*> Zs = {Z1, Z2}; // in the original order
+    std::vector<const reco::Candidate*> Zs = {Z1, Z2}; // in the original order
 
     //--- Lepton pointers in the original order
     const reco::Candidate* Z1L1= Z1->daughter(0);
     const reco::Candidate* Z1L2= Z1->daughter(1);
     const reco::Candidate* Z2L1= Z2->daughter(0);
     const reco::Candidate* Z2L2= Z2->daughter(1);
-    vector<const reco::Candidate*> ZZLeps = {Z1L1,Z1L2,Z2L1,Z2L2}; // array, in the original order
+    std::vector<const reco::Candidate*> ZZLeps = {Z1L1,Z1L2,Z2L1,Z2L2}; // array, in the original order
 
     // Create corresponding array of fourmomenta; will add FSR (below)
-    vector<math::XYZTLorentzVector> pij(4);
+    std::vector<math::XYZTLorentzVector> pij(4);
     std::transform(ZZLeps.begin(), ZZLeps.end(),pij.begin(), [](const reco::Candidate* c){return c->p4();});
 
 
@@ -293,7 +294,7 @@ void ZZCandidateFiller::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
 
     //--- QCD suppression cut
-    vector<const reco::Candidate*> lep;
+    std::vector<const reco::Candidate*> lep;
     lep.push_back(Z1Lm);
     lep.push_back(Z1Lp);
     lep.push_back(Z2Lm);
@@ -312,7 +313,7 @@ void ZZCandidateFiller::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     }
 
 
-    vector<pair<double, int>> ptS;
+    std::vector<pair<double, int>> ptS;
     ptS.push_back(make_pair(Z1Lm->pt(), Z1Lm->pdgId()));
     ptS.push_back(make_pair(Z1Lp->pt(), Z1Lp->pdgId()));
     ptS.push_back(make_pair(Z2Lm->pt(), Z2Lm->pdgId()));
@@ -385,7 +386,7 @@ void ZZCandidateFiller::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
     //--- store Z candidates whose leptons are not involved in the current ZZ candidate
     int nExtraZ = 0;
-    vector<const CompositeCandidate*> extraZs;
+    std::vector<const CompositeCandidate*> extraZs;
     for( View<CompositeCandidate>::const_iterator zcand = ZCands->begin(); zcand != ZCands->end(); ++ zcand ) {
       if( reco::deltaR( zcand->daughter(0)->p4(), Z1L1->p4() ) > 0.02 &&
       reco::deltaR( zcand->daughter(0)->p4(), Z1L2->p4() ) > 0.02 &&
@@ -452,8 +453,8 @@ void ZZCandidateFiller::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
       if (jecnum==1) jecnum_multiplier = 1.;
       else if (jecnum==2) jecnum_multiplier = -1.;
 
-      vector<const reco::GenJet*> cleanedJetsPt30Jec;
-      vector<float> jec_ratio;
+      std::vector<const reco::GenJet*> cleanedJetsPt30Jec;
+      std::vector<float> jec_ratio;
       for (std::vector<reco::GenJet>::const_iterator jet = CleanJets->begin(); jet != CleanJets->end(); ++jet){
         // calculate JEC uncertainty up/down
 //        float jec_unc = jet->userFloat("jec_unc");
@@ -513,7 +514,7 @@ void ZZCandidateFiller::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
     //----------------------------------------------------------------------
 
-      vector<reco::Candidate *> selectedLeptons;
+      std::vector<reco::Candidate *> selectedLeptons;
       std::map<unsigned int, TLorentzVector> selectedFsrMap;
 
       for(unsigned ilep=0; ilep<4; ilep++){
@@ -840,7 +841,7 @@ void ZZCandidateFiller::updateMELAClusters_J2JEC(){
         for (unsigned int disableJet=0; disableJet<nGoodJets; disableJet++) melaCand->getAssociatedJet(disableJet)->setSelected((disableJet==firstjet || disableJet==secondjet)); // Disable the other jets
         unsigned int nDisabledStableTops=0;
         for (int itop=0; itop<melaCand->getNAssociatedTops(); itop++){
-          MELATopCandidate* einTop = melaCand->getAssociatedTop(itop);
+          MELATopCandidate_t* einTop = melaCand->getAssociatedTop(itop);
           if (einTop->getNDaughters()==3) einTop->setSelected(false); // All unstable tops are disabled in the loop for jets (where "jet"=="stable top") since we are looping over jecnum
           else{
             einTop->setSelected((nDisabledStableTops==firstjet || nDisabledStableTops==secondjet)); // Disable the other stable tops

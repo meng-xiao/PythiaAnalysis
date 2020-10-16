@@ -67,11 +67,11 @@ int userdatahelpers::hasUserFloat(const reco::Candidate* c, const char* name){
 
 
 void 
-userdatahelpers::getSortedLeptons(const pat::CompositeCandidate& cand, vector<const Candidate*>& leptons, vector<string>& labels, vector<const Candidate*>& fsrPhotons, std::vector<short>& fsrIndex, bool is4l) {
+userdatahelpers::getSortedLeptons(const pat::CompositeCandidate& cand, std::vector<const Candidate*>& leptons, std::vector<string>& labels, std::vector<const Candidate*>& fsrPhotons, std::vector<short>& fsrIndex, bool is4l) {
 
   if (is4l) { // Regular 4 lepton SR/CR
     // Pointers to Z, sorted by mass
-    vector<const Candidate*> Zs   = {cand.daughter("Z1"), cand.daughter("Z2")};
+    std::vector<const Candidate*> Zs   = {cand.daughter("Z1"), cand.daughter("Z2")};
 
     //Pointer to leptons (Z11,Z12,Z21,Z22, to be sorted by charge)
     leptons = {Zs[0]->daughter(0), Zs[0]->daughter(1), Zs[1]->daughter(0), Zs[1]->daughter(1)};
@@ -82,7 +82,7 @@ userdatahelpers::getSortedLeptons(const pat::CompositeCandidate& cand, vector<co
     if (cand.daughter("Z1")==cand.daughter(1)) swap(Z1Label,Z2Label);
     labels = {Z1Label+"d0.",Z1Label +"d1.", Z2Label+"d0.",Z2Label+"d1."};
 
-    vector<unsigned> lOrder = {0,1,2,3};
+    std::vector<unsigned> lOrder = {0,1,2,3};
 
     // Sort leptons by charge so that the order is Z1Lp, Z1Ln, Z2Lp, Z2Ln;
     // for TLEs, assume they are opposite-sign to the other lepton.
@@ -144,7 +144,7 @@ userdatahelpers::getSortedLeptons(const pat::CompositeCandidate& cand, vector<co
     const Candidate* Z1 = cand.daughter(0); // the Z    
     leptons = {Z1->daughter(0), Z1->daughter(1), cand.daughter(1)};
     labels = {"d0.d0.","d0.d1.","d1."};
-    vector<unsigned> lOrder = {0,1,2};
+    std::vector<unsigned> lOrder = {0,1,2};
 
     if (leptons[0]->charge() < 0 && leptons[0]->charge()*leptons[1]->charge()<0) {
       swap(leptons[0],leptons[1]);
@@ -163,13 +163,13 @@ userdatahelpers::getSortedLeptons(const pat::CompositeCandidate& cand, vector<co
 
 
 void 
-userdatahelpers::getSortedZLeptons(const pat::CompositeCandidate& cand, vector<const Candidate*>& leptons, vector<string>& labels, vector<const Candidate*>& fsrPhotons, std::vector<short>& fsrIndex) {
+userdatahelpers::getSortedZLeptons(const pat::CompositeCandidate& cand, std::vector<const Candidate*>& leptons, std::vector<string>& labels, std::vector<const Candidate*>& fsrPhotons, std::vector<short>& fsrIndex) {
 
   // Pointer to leptons, to be sorted by charge, in order Lp, Ln
   leptons = {cand.daughter(0), cand.daughter(1)};
 
   labels = {"d0.","d1."};
-  vector<unsigned> lOrder = {0,1};
+  std::vector<unsigned> lOrder = {0,1};
 
   if (leptons[0]->charge() < 0 && leptons[0]->charge()*leptons[1]->charge()<0) {
     swap(leptons[0],leptons[1]);
