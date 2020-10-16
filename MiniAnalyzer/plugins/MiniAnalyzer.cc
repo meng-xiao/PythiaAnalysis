@@ -352,7 +352,12 @@ MiniAnalyzer::MiniAnalyzer(const edm::ParameterSet& iConfig):
 {
 	//now do what ever initialization is needed
 
-	lheHandler = new LHEHandler(iConfig.getParameter<int>("VVMode"), iConfig.getParameter<int>("VVDecayMode"), true, year);
+lheHandler = new LHEHandler(
+      ((MELAEvent::CandidateVVMode)(iConfig.getParameter<int>("VVMode")+1)), // FIXME: Need to pass strings and interpret them instead!
+      iConfig.getParameter<int>("VVDecayMode"),
+      LHEHandler::doHiggsKinematics,
+      year, LHEHandler::tryNNPDF30, LHEHandler::tryNLO
+    );
 	genInfoToken = consumes<GenEventInfoProduct>(edm::InputTag("generator"));
 	consumesMany<LHEEventProduct>();
 	candToken = consumes<edm::View<pat::CompositeCandidate> >(edm::InputTag(theCandLabel));
@@ -947,11 +952,8 @@ void MiniAnalyzer::FillLHECandidate(){
 			edm::LogWarning("InconsistentWeights") << "Gen weight is 1, LHE weight is " << genHEPMCweight;
 		}
 	}
-		if (year == 2017) {
-	genHEPMCweight *= lheHandler->reweightNNLOtoNLO();
-		}
 
-	genHEPMCweight_POWHEGonly = lheHandler->getPowhegOriginalWeight();
+	genHEPMCweight_POWHEGonly = lheHandler->getMemberZeroWeight();
 }
 
 

@@ -20,6 +20,9 @@
 *.mod
 *.smod
 
+# Python dynamic file
+*.pyc
+
 # Compiled Static libraries
 *.lai
 *.la
@@ -34,4 +37,5 @@
 # code editor and projects
 .vscode
 .DS_Store
-.swp
+*.swp
+
