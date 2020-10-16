@@ -13,6 +13,12 @@ git clone https://github.com/JHUGen/JHUGenMELA.git
 git clone https://github.com/meng-xiao/PythiaAnalysis.git Test
 # git clone https://github.com/qwezarty/PythiaAnalysis.git Test
 
+# compile JHUGenMELA
+(					\
+  cd ${CMSSW_BASE}/src/JHUGenMELA	;\
+  ./setup.sh -j 8			;\
+)
+
 
 # replace ZZMatrixElement/MELA/setup.sh -j 8
 (                                                                 \
