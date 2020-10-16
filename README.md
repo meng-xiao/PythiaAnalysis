@@ -11,8 +11,8 @@ On lxplus, do the following:
 cmsrel CMSSW_10_2_18
 cd CMSSW_10_2_18/src
 cmsenv
-# wget -O ${TMPDIR}/checkout.csh https://raw.githubusercontent.com/meng-xiao/PythiaAnalysis/master/checkout.csh
-wget -O ${TMPDIR}/checkout.csh https://raw.githubusercontent.com/qwezarty/PythiaAnalysis/master/checkout.csh
+wget -O ${TMPDIR}/checkout.csh https://raw.githubusercontent.com/meng-xiao/PythiaAnalysis/master/checkout.csh
+# wget -O ${TMPDIR}/checkout.csh https://raw.githubusercontent.com/qwezarty/PythiaAnalysis/master/checkout.csh
 cd $CMSSW_BASE/src
 chmod u+x ${TMPDIR}/checkout.csh
 ${TMPDIR}/checkout.csh
