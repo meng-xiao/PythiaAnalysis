@@ -25,10 +25,26 @@ cd $CMSSW_BASE/src
 scram b -j8
 ```
 
-## Run in clusters
+## Run at clusters (Grid)
+
+You need a permission / cert for reaching grid clusters. See [Getting a Personal Grid Certificate from CERN](https://uscms.org/uscms_at_work/physics/computing/getstarted/get_grid_cert.shtml) for more details.
 
 ```bash
+# setup grid credentials
 cd MiniAnalyzer/test
 source grid.sh
-batch_Condor.py samples_2017_MC.csv -i analyzer_gen.py -o minloFilter
+# create jobs and submit
+../scripts/batch_Condor.py samples_2017_MC.csv -i analyzer.py -o minloFilter
+cd minloFilter && resubmit_Condor.csh
+# to check how many jobs are still running or pending on Condor
+condor_q
+# once the jobs are done, from the same folder
+checkProd.csh
 ```
+
+See more details at [Submitting Jobs](https://github.com/CJLST/ZZAnalysis/wiki/SubmittingJobs).
+
+## Dependencies
+- [ZZAnalysis](https://github.com/CJLST/ZZAnalysis)
+- [HiggsAnalysis-ZZMatrixElement](https://github.com/cms-analysis/HiggsAnalysis-ZZMatrixElement)
+- [MelaAnalytics](https://github.com/usarica/MelaAnalytics)
